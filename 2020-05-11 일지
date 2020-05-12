@@ -1,7 +1,10 @@
 # learning_django  
 2020-05-11 장고 학습을 위한 툴 및 익스텐션 설치  
-툴 : VScode (파이참 개발자 용은 유료이다보니 익스텐션도 다양하고 무료인 VScode를 사용)
-익스텐션: Python( django 개발을 위해선 필수)  
+Web framework - dJango
+Tool : VScode (파이참 개발자 용은 유료이다보니 익스텐션도 다양하고 무료인 VScode를 사용)
+OS : Window10
+DB : MYSQL
+Extensions: Python( django 개발을 위해선 필수)  
           Auto closing tag (만약의 태그 실수를 위한 설치)  
           Auto Rename tag (태그 실수를 위한 설치)  
           Jinja ( 템플릿 태그 실수를 위한 설치)  
