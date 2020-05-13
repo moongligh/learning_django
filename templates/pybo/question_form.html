@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--- base.html 내부 구현부분 시작 --->
+<div class='container'>
+    <h5 class='my-3 border-bottom pb-2'> 질문등록 </h5>
+    <form method='post' class='post-form my-3'>
+        {% csrf_token %}
+        <!--- POST방식을 이용할때 이용하는 장고기본 미들웨이 --->
+        {{ form.as_p }}
+        <!--- question_create 함수에서 전달한 QuestionForm의 객체 제목과 내용이 같은 폼 입력항목을 위한 HTML코드를 자동으로 생성해준다. --->
+        <button type='submit' class='btn btn-primary'> 저장하기 </button>
+    </form>
+</div>
+{% endblock %}
+<!--- base.html 내부 구협부분 끝 --->

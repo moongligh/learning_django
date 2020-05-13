@@ -1,0 +1,23 @@
+{% load static %}
+<!doctype html>
+<html lang='ko'>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <!-- Bootstrap CSS-->
+    <link rel='stylesheet' type='text/css' href='{% static "bootstrap.min.css" %}'>
+    <!-- Pybo CSS -->
+    <link rel='stylesheet' type='text/css' href='{% static "style.css" %}'>
+    <title> 여기는 Pybo! </title>
+</head>
+
+<body>
+    <!-- 기본 템플릿 안에 삽일될 내용 시작점-->
+    {% block content %}
+    {% endblock %}
+    <!-- 기본 템플릿 안에 삽입될 내용 끝-->
+</body>
+
+</html>
