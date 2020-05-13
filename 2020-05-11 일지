@@ -1,7 +1,7 @@
 # learning_django  
 2020-05-11 장고 학습을 위한 툴 및 익스텐션 설치  
 Web framework - dJango
-Tool : VScode (파이참 개발자 용은 유료이다보니 익스텐션도 다양하고 무료인 VScode를 사용)
+Tool : VScode (인터넷 대부분의 강의는 Pycham 개발자용을 이용하지만 학생에게는 큰돈이라 무료이고 가벼운 VScode를 사용하게되었다.)
 OS : Window10
 DB : MYSQL
 Extensions: Python
