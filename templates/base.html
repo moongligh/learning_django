@@ -3,21 +3,29 @@
 <html lang='ko'>
 
 <head>
-    <!-- Required meta tags-->
+    <!-- Required meta tags -->
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-    <!-- Bootstrap CSS-->
-    <link rel='stylesheet' type='text/css' href='{% static "bootstrap.min.css" %}'>
-    <!-- Pybo CSS -->
+    <!-- Bootstrap CSS -->
+    <link rel='stylesheet' type='text/css' href='{% static "css/bootstrap.min.css" %}'>
+    <!-- Pybo CSS 미사용 -->
     <link rel='stylesheet' type='text/css' href='{% static "style.css" %}'>
     <title> 여기는 Pybo! </title>
 </head>
 
 <body>
-    <!-- 기본 템플릿 안에 삽일될 내용 시작점-->
+    <!--- 네비게이션 바 부분 include --->
+    {% include 'navbar.html' %}
+
+    <!--- 상속받는 템플릿의 구현부분 시작 --->
     {% block content %}
     {% endblock %}
-    <!-- 기본 템플릿 안에 삽입될 내용 끝-->
+    <!--- 상속받는 템플릿의 구현부분 끝 --->
+
+    <!-- JQuery JS-->
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <!-- Bootstrap JS-->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 
 </html>
