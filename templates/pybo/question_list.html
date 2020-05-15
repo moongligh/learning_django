@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load pybo_filter %}
 {% block content %}
 <!-- base.html body내 구현부분 시작-->
 <div class="container my-3">
@@ -13,21 +14,73 @@
         <tbody>
             {% if question_list %}
             {% for question in question_list %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>
-                    <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
-                </td>
-                <td>{{ question.create_date }}</td>
-            </tr>
+                <tr>
+                    <td>
+                        <!--- 게시판에 보여지는 글 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 --->
+                        {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
+                    </td>
+                    <td>
+                        <!--- 글 제목 --->
+                        <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                        <!--- 답변갯수 표시부분 --->
+                        {% if question.answer_set.count > 0 %}
+                            <span class='text-danger small ml-2'>{{ question.answer_set.count }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <!--- 글 생성일 --->
+                        {{ question.create_date }}
+                    </td>
+                </tr>
             {% endfor %}
             {% else %}
-            <tr>
-                <td colspan="3">질문이 없습니다.</td>
-            </tr>
+                <tr>
+                    <td colspan="3"> 질문이 없습니다. </td>
+                </tr>
             {% endif %}
         </tbody>
     </table>
+    <!--- 페이징처리부분 시작 --->
+    <ul class='pagination justify-content-center'>
+        {% if question_list.has_previous %}
+            <li class='page-item' aria-current='page'>
+                <!--- 이전페이지가 있을경우 이전페이지 --->
+                <a class='page-link' href='?page={{ question_list.previous_page_number }}'> 이전 </a>
+            </li>
+        {% else %}
+            <li class='page-item disabled' aria-current='page'>
+                <!--- 이전페이지가 없을 이전페이지 --->
+                <a class='page-link' tabindex='-1' aria-disabled='True' href='#'>이전</a>
+            </li>
+        {% endif %}
+        <!--- 페이지리스트부분 시작 --->
+        {% for page_number in question_list.paginator.page_range %} <!--- 페이지 넘버 만드는 for문 --->
+            {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %} <!--- 현재 question_list.number 기준으로 5만큼 작은것부터 5만큼 큰 페이지넘버 보여주기 --->
+                {% if page_number == question_list.number %} <!--- 페이지 넘버 클릭하면 pybo/?page="page_number" 링크로 넘어가기-->
+                    <li class='page-item active' aria-current='page'>
+                        <a class='page-link' href='?page={{ page_number }}'>{{ page_number }}</a>
+                    </li>
+                {% else %}
+                    <li class='page-item'>
+                        <a class='page-link' href='?page={{ page_number }}'>{{ page_number }}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <!--- 페이지리스트부분 끝 --->
+        {% if question_list.has_next %}
+            <li class='page-item' aria-current='page'>
+                <!--- 다음페이지가 있을경우 다음 페이지부분-->
+                <a class='page-link' href='?page={{ question_list.next_page_number }}'>다음</a>
+            </li>
+        {% else %}
+            <li class='page-item disabled' aria-current='page'>
+                <!--- 다음페이지가 없을경우 다음 페이지부분-->
+                <a class='page-link' tabindex='-1' aria-disabled='True' href='#'>다음</a>
+            </li>
+        {% endif %}
+        <!--- 다음페이지부분 끝 --->
+    </ul>
     <a href="{% url 'pybo:question_create' %}" class='btn btn-primary'> 질문 등록하기 </a>
 </div>
 <!-- base.html내 구현부분 끝-->

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 
     # --- [사용자 생성 추가 앱] --- #
     'pybo.apps.PyboConfig',
+    'common.apps.CommonConfig',
 
 
     # --- [기본 등록 앱] --- #
@@ -127,3 +128,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+
+# 로그인 성공후 이동하는 URL 설정
+LOGIN_REDIRECT_URL = '/'
+# 로그아웃 성공후 이동하는 URL 설정
+LOGOUT_REDIRECT_URL = '/'
+
