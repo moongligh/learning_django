@@ -8,45 +8,53 @@
             <tr class="thead-dark text-center"><!-- 목록 상단부분 -->
                 <th>번호</th>
                 <th style='width:50%'>제목</th>
+                <th>추천수</th>
                 <th>글쓴이</th>
                 <th>작성일시</th>
             </tr>
         </thead>
         <tbody>
             {% if question_list %}
-            {% for question in question_list %}
-                <tr class='text-center'>
-                    <!--- 게시판에 보여지는 글 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 --->
-                    <td>
-                        {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
-                    </td>
 
-                    <!--- 글 제목 --->
-                    <td class='text-left'>
-                        <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                {% for question in question_list %} <!-- 등록된 질문수 만큼 반복하기 시작 -->
+                    <tr class='text-center'>
+                        <!--- 게시판에 보여지는 글 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 --->
+                        <td>
+                            {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
+                        </td>
+
+                        <!--- 글 제목 --->
+                        <td class='text-left'>
+                            <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                            
+                            <!--- 답변갯수 표시부분 --->
+                            {% if question.answer_set.count > 0 %}
+                                <span class='text-danger small ml-2'>{{ question.answer_set.count }}</span>
+                            {% endif %}
+                        </td>
                         
-                        <!--- 답변갯수 표시부분 --->
-                        {% if question.answer_set.count > 0 %}
-                            <span class='text-danger small ml-2'>{{ question.answer_set.count }}</span>
-                        {% endif %}
-                    </td>
+                        
+                        <td> <!-- 추천수 시작 -->
+                            {% if question.voter.all.count > 0 %}
+                                <span class="badge badge-warning px-2 py-1">{{ question.voter.all.count }}</span>
+                            {% endif %}
+                        </td> <!-- 추천수 끝 -->
 
-                    <!--- 글 작성자 --->
-                    <td>
-                        {{ question.author.username }}
-                    </td>
+                        <td>
+                            {{ question.author.username }} <!--- 글 작성자 --->
+                        </td>
 
-                     <!--- 글 생성일 --->
-                    <td>
-                        {{ question.create_date }}
-                    </td>
-                </tr>
-            {% endfor %}
-            {% else %}
+                        <td>
+                            {{ question.create_date }} <!--- 글 생성일 --->
+                        </td>
+                    </tr>
+                {% endfor %} <!-- 등록된 질문수 만큼 반복하기 끝 -->
+
+            {% else %}  <!-- 등록된 질문이 없을경우 시작 -->
                 <tr>
                     <td colspan="3"> 질문이 없습니다. </td>
                 </tr>
-            {% endif %}
+            {% endif %} <!-- 등록된 질문이 없을경우 끝 -->
         </tbody>
     </table>
     <!--- 페이징처리부분 시작 --->

@@ -1,2 +1,4 @@
-/* Bootstrap.mon.css 사용으로 현재는 비워둡니다. */
-/* 향후에 사용자 개인 css가 필요할시 사용합니다. */
+.comment{
+    border-top: dotted 1px #ddd;
+    font-size: 0.7em;
+}
